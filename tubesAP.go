@@ -65,10 +65,10 @@ func main(){
 		}else if accountOption == 2{
 			isLogin = regis(&akun, accountOption)
 		}else if accountOption == 3{
-			fmt.Println("Terimakasih Sudah Menggunakan Aplikasi. Sampai Jumpa")
+			fmt.Println("🙏 Terima kasih telah menggunakan aplikasi kami. Sampai jumpa di transaksi berikutnya!")
 			aplikasiAktif = false
 		}else{
-			fmt.Print("Pilihan Tidak Valid. Silahkan Pilih 1, 2, atau 3.")
+			fmt.Println("❌ Pilihan tidak valid! Silakan pilih angka 1, 2, atau 3 sesuai menu yang tersedia.")
 		}
 		for isLogin{
 			var dashboardOption int
@@ -76,13 +76,13 @@ func main(){
 			fmt.Scan(&dashboardOption)
 			switch dashboardOption{
 				case 1:
-					fmt.Print("Pilih Jual atau beli: ")
+					fmt.Print("🪙 Apa yang ingin Anda lakukan hari ini? (Ketik 'jual' atau 'beli'): ")
 					fmt.Scan(&tipeJualBeli)
 					jualBeli(tipeJualBeli, &catatanTransaksi, &dompetVirtual, &akun)
 				case 2: 
-					fmt.Print("Masukan Id: ")
+					fmt.Print("🆔 Masukkan ID Anda (angka): ")
 					fmt.Scan(&id)
-					fmt.Print("Masukan Tanggal, Bulan, dan Tahun: ")
+					fmt.Print("🗓️  Masukkan tanggal transaksi (format: DD-MM-YYYY): ")
 					fmt.Scan(&tanggal, &bulan, &tahun)
 					mencariDataTranksasi(catatanTransaksi, akun, tanggal, bulan, tahun, id)
 				case 3:
@@ -90,15 +90,15 @@ func main(){
 				case 4:
 					tampilanLaporanDataHargaKripto()
 				case 5:
-					fmt.Print("Masukan Id: ")
+					fmt.Print("🆔 Masukkan ID Anda (angka): ")
 					fmt.Scan(&id)
-					fmt.Print("Masukan Password: ")
+					fmt.Print("🔐 Masukkan Password: ")
 					fmt.Scan(&pass)
 					isLogin = hapusAccount(&akun, id, pass)
 				case 6:
-					fmt.Print("Masukan Id: ")
+					fmt.Print("🆔 Masukkan ID Anda (angka): ")
 					fmt.Scan(&id)
-					fmt.Print("Masukan Password: ")
+					fmt.Print("🔐 Masukkan Password: ")
 					fmt.Scan(&pass)
 					isLogin = logOut(akun, id, pass)
 				case 7:
@@ -109,40 +109,39 @@ func main(){
 	}
 }
 func WelcomeLogin() {
-	fmt.Println("=========================================================")
-	fmt.Println("         SELAMAT DATANG DI APLIKASI JUAL BELI KRIPTO     ")
-	fmt.Println("                 INVESTASI ASET DIGITAL                   ")
-	fmt.Println("=========================================================")
-	fmt.Println("\n🚀 Pilihan Menu:")
-	fmt.Println("---------------------------------------------------------")
-	fmt.Println("1. Login")
-	fmt.Println("2. Daftar Akun")
-	fmt.Println("3. Keluar Aplikasi")
-	fmt.Println("---------------------------------------------------------")
-	fmt.Print("\nMasukkan Pilihanmu 💻: ")
+	fmt.Println("╔════════════════════════════════════════════════════════════╗")
+	fmt.Println("║            🌐 SELAMAT DATANG DI CRYPTO TRADE APP           ║")
+	fmt.Println("║                💰 Platform Investasi Kripto                ║")
+	fmt.Println("╚════════════════════════════════════════════════════════════╝")
+	fmt.Println("   Silakan pilih menu berikut:")
+	fmt.Println("   [1] 🔐 Login")
+	fmt.Println("   [2] 📝 Daftar Akun Baru")
+	fmt.Println("   [3] ❌ Keluar Aplikasi")
+	fmt.Println("-------------------------------------------------------------")
+	fmt.Print("📥 Masukkan pilihan Anda : ")
 }
+
 func DashboardOption() {
-	fmt.Println("\n\n-----------------Welcome To Dashboard------------------")
-	fmt.Println()
-	fmt.Println("=========================================================")
-	fmt.Println("1. Melakukan Transaksi Kripto")
-	fmt.Println("2. Search Data Transaksi Kripto")
-	fmt.Println("3. Urutkan Top Global Kripto")
-	fmt.Println("4. Tampilkan Laporan Data Harga Kripto")
-	fmt.Println("5. Hapus Akun")
-	fmt.Println("6. LogOut")
-	fmt.Println("7. Keluar Aplikasi")
-	fmt.Println("=========================================================")
-	fmt.Print("Masukkan Pilihan: ")
+	fmt.Println("\n╔═════════════════════📊 DASHBOARD MENU📊══════════════════════╗")
+	fmt.Println("║ [1] 💱 Transaksi Jual/Beli Kripto                            ║")
+	fmt.Println("║ [2] 🔍 Cari Riwayat Transaksi                                ║")
+	fmt.Println("║ [3] 🏆 Tampilkan Top Akun Kripto                             ║")
+	fmt.Println("║ [4] 📈 Laporan Data Harga Kripto                             ║")
+	fmt.Println("║ [5] 🗑️ Hapus Akun                                             ║")
+	fmt.Println("║ [6] 🔓 Logout                                                ║")
+	fmt.Println("║ [7] ❌ Keluar Aplikasi                                       ║")
+	fmt.Println("╚══════════════════════════════════════════════════════════════╝")
+	fmt.Print("📥 Masukkan pilihan Anda: ")
 }
+
 func login(akun *arrAkun, pilihAkun int)bool{
 	var i, id int
 	var pass int
 	var benarLogin bool
 	if pilihAkun == 1{
-		fmt.Print("Masukan id: ")
+		fmt.Print("🆔 Masukkan ID Anda (angka): ")
 		fmt.Scan(&id)
-		fmt.Print("Masukan Password: ")
+		fmt.Print("🔐 Masukkan Password: ")
 		fmt.Scan(&pass)
 		i = 0
 		benarLogin = false
@@ -155,9 +154,9 @@ func login(akun *arrAkun, pilihAkun int)bool{
 			i++
 		}
 		if benarLogin{
-			fmt.Println("Login berhasil. ")
+			fmt.Println("✅ Login berhasil! Selamat datang kembali 👋")
 		}else{
-			fmt.Println("ID atau password salah. ")
+			fmt.Println("❌ ID atau kata sandi salah. Coba lagi ya!")
 		}
 	}
 	return benarLogin
@@ -171,12 +170,16 @@ func regis(akun *arrAkun, pilihAkun int)bool{
 	if pilihAkun == 2{
 		buatAkun = false
 		for buatAkun == false {
-			fmt.Print("Buat Id (dalam integer kombinasi 0 - 9): ")
-			fmt.Scan(&id)
-			fmt.Print("Masukan Username: ")
-			fmt.Scan(&usrn)
-			fmt.Print("Buat Password (dalam integer kombinasi 0 - 9): ")
-			fmt.Scan(&pass)
+		fmt.Println("🆔 Silakan buat ID Anda (gunakan kombinasi angka 0-9):")
+		fmt.Print("👉 ID: ")
+		fmt.Scan(&id)
+		fmt.Println("👤 Masukkan nama pengguna (username) Anda:")
+		fmt.Print("👉 Username: ")
+		fmt.Scan(&usrn)
+		fmt.Println("🔒 Silakan buat password (gunakan kombinasi angka 0-9):")
+		fmt.Print("👉 Password: ")
+		fmt.Scan(&pass)
+
 			i = 0
 			idUnik = true
 			for i < NMAX{
@@ -191,7 +194,7 @@ func regis(akun *arrAkun, pilihAkun int)bool{
 				}
 			}
 			if idUnik{
-				fmt.Print("Masukan nilai uang: ")
+			fmt.Print("💵 Masukkan jumlah uang: ")
 				fmt.Scan(&uangFiat)
 				akun[n].id = id
 				akun[n].username = usrn
@@ -202,9 +205,9 @@ func regis(akun *arrAkun, pilihAkun int)bool{
 				akun[n].saldoVirtual.pasokan = 0
 				n = n+1
 				buatAkun  = true
-				fmt.Println("Akun berhasil dibuat")
+				fmt.Println("🎉 Akun berhasil dibuat! Selamat datang di platform kami.")
 			}else{
-				fmt.Println("ID sudah digunakan. Silahkan cobalagi")
+				fmt.Println("⚠️  ID sudah digunakan. Silakan coba lagi dengan ID lain.")
 			}
 		}	
 	}
@@ -217,10 +220,12 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 	var valid bool
 	valid = true
 	i = 0
-	fmt.Println("Masukan Id: ")
-	fmt.Scan(&id)
-	fmt.Println("Masukan Password: ")
-	fmt.Scan(&pw)
+	if tipeJualBeli == "beli" || tipeJualBeli == "jual"{
+		fmt.Print("🆔 Masukkan ID Anda (angka): ")
+		fmt.Scan(&id)
+		fmt.Print("🔐 Masukkan Password: ")
+		fmt.Scan(&pw)
+	}
 	i = 0
 	for i < NMAX{
 		if akun[i].id == id && akun[i].password == pw{
@@ -235,17 +240,17 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 		}
 	}
 	if valid != false{
-		fmt.Print("Id atau Password Salah")
+		fmt.Println("❌ ID atau kata sandi salah. Coba lagi ya!")
 	}
 	for valid == false{
 		i = 0
 		if tipeJualBeli == "jual"{	
-			fmt.Print("Masukan Jumlah Kripto Yang Ingin Dijual: ")
+			fmt.Print("💸 Masukkan jumlah kripto yang ingin Anda jual: ")
 			fmt.Scan(&jumlahKriptoYangDijual)
 			if jumlahKriptoYangDijual <= pasokanKripto{
 				nilaiJualKripto = float64(jumlahKriptoYangDijual)*21000
-				akun[idxWallet].moneyFiat = nilaiJualKripto
-				fmt.Print("Tulis Tanggal, Bulan, dan Tahun: ")
+				akun[idxWallet].moneyFiat += nilaiJualKripto
+				fmt.Print("🗓️  Masukkan tanggal transaksi (format: DD-MM-YYYY): ")
 				fmt.Scan(&tanggal, &bulan, &tahun)
 				for i < NMAX{
 					if dataJualBeli[i].userId == 0{
@@ -266,16 +271,16 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 				akun[idxWallet].saldoVirtual.pasokan = wallet[idxWallet].pasokan
 				valid = true
 			}else{
-				fmt.Print("Jumlah Kripto Yang Dimiliki Tidak Tercukupi")
+				fmt.Println("🚫 Jumlah kripto yang dimiliki tidak mencukupi. Silakan periksa saldo Anda.")
 				valid = true
 			}
 		}else if tipeJualBeli == "beli"{
-			fmt.Print("Masukan Jumlah Kripto Yang Ingin DIbeli: ")
+			fmt.Print("💰 Masukkan jumlah kripto yang ingin Anda beli: ")
 			fmt.Scan(&jumlahKriptoYangDibeli)
 			nilaiBeliKripto = jumlahKriptoYangDibeli*21000
 			if akun[idxWallet].moneyFiat >= float64(nilaiBeliKripto){
 				akun[idxWallet].moneyFiat -=float64(nilaiBeliKripto)
-				fmt.Print("Tulis Tanggal, Bulan, dan Tahun: ")
+				fmt.Print("🗓️  Masukkan tanggal transaksi (format: DD-MM-YYYY): ")
 				fmt.Scan(&tanggal, &bulan, &tahun)
 				for i < NMAX{
 					if dataJualBeli[i].userId == 0{
@@ -296,11 +301,11 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 				akun[idxWallet].saldoVirtual.pasokan = wallet[idxWallet].pasokan
 				valid = true
 			}else{
-				fmt.Println("Uang Tidak Cukup")
+				fmt.Println("💸 Maaf, saldo Anda tidak mencukupi untuk melakukan transaksi.")
 				valid = true
 			}		
 		}else{
-			fmt.Println("Tipe transaksi tidak dikenali (harus 'jual' atau 'beli').")
+			fmt.Println("⚠️ Tipe transaksi tidak dikenali. Silakan ketik 'jual' atau 'beli'.")
 			valid = true
 		}
 	}
@@ -320,11 +325,15 @@ func mencariDataTranksasi(dataJualBeli arrTransaksi, akun arrAkun, tanggal, bula
 		}
 	}
 	if ada == true {
-		fmt.Println("\nAkun Yang Tersedia:")
-		fmt.Printf("%-5s %-10s %-15s %-10s %-15s\n", "ID", "Username", "Saldo", "Pasokan", "Tipe Transaksi")
-		fmt.Printf("%-5d %-10s Rp%-13.2f %-10d %-15s\n", akun[temp].id, akun[temp].username, akun[temp].moneyFiat, akun[temp].saldoVirtual.pasokan, dataJualBeli[temp].tipeTransaksi)
+		fmt.Printf("\n📄 Transaksi Tanggal: %02d/%02d/%04d\n", tanggal, bulan, tahun)
+		fmt.Println("═══════════════════════════════════════════════════════════")
+		fmt.Printf("%-10s | %-10s | %-10s | %-10s | %-15s\n", "ID", "Username", "Saldo", "Kripto", "Jenis Transaksi")
+		fmt.Println("───────────────────────────────────────────────────────────")
+		fmt.Printf("%-10d | %-10s | Rp%-9.2f | %-10d | %-15s\n",
+		akun[temp].id, akun[temp].username, akun[temp].moneyFiat, akun[temp].saldoVirtual.pasokan, dataJualBeli[temp].tipeTransaksi)
+		fmt.Println("═══════════════════════════════════════════════════════════")
 	} else {
-		fmt.Print("Tidak Ada Riwayat Transaksi")
+		fmt.Println("📭 Tidak ditemukan riwayat transaksi.")
 	}
 }
 func tampilanLaporanDataHargaKripto(){
@@ -353,7 +362,7 @@ func rangkingKripto(A arrAkun){
 			i = NMAX
 		}
 	}
-	fmt.Println("=== Top Tier Kripto ===")
+	fmt.Println("🔥 === Kripto Papan Atas Saat Ini ===")
 	for i = 0; i < NMAX; i++ {
 		if A[i].id != 0 {
 			fmt.Printf("ID: %d | Username: %s | Pasokan: %d\n",
@@ -382,12 +391,12 @@ func hapusAccount(akun *arrAkun, id, pass int)bool{
 			akun[i] = akun[i+1]
 		}
 		temp--
-		fmt.Println("akun Berhasil Dihapus, Logout Otomatis")
+		fmt.Println("✅ Akun berhasil dihapus. Anda telah logout secara otomatis.")
 		return false
 	}else{
-		fmt.Println("Indeks Tidak Valid")
+		fmt.Println("🚫 Indeks yang dimasukkan tidak valid. Silakan coba lagi.")
 	}
-	fmt.Println("\nAkun Yang Tersedia:")
+	fmt.Println("\n👥 Akun yang tersedia saat ini:")
 	fmt.Printf("%-5s %-10s %-10s %-10s\n", "ID", "Username", "Saldo", "Pasokan")
 	for i = 0; i < NMAX; i++ {
 		if akun[i].id != 0{
@@ -408,7 +417,7 @@ func logOut(akun arrAkun, id, pass int)bool{
 		}
 	}
 	if keluar == true{
-		 fmt.Println("Berhasil Logout. Silakan login kembali.")
+		fmt.Println("🔒 Logout berhasil. Silakan login kembali untuk mengakses akun Anda.")
 		isLogin = false
 	}else{
 		fmt.Println("Password atau Id Salah, Logout Gagal.")

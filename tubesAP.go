@@ -27,9 +27,6 @@ const NMAX int = 100
 type arrWalet = [NMAX]wallet
 type arrAkun = [NMAX]account
 type arrTransaksi = [NMAX]transaksi
-var DataTransaksi arrTransaksi
-var DataDompet arrWalet
-var DataAkun arrAkun
 
 func main(){
 	var akun arrAkun
@@ -38,6 +35,26 @@ func main(){
 	var aplikasiAktif bool = true
 	var tipeJualBeli string
 	var tanggal, bulan, tahun, id, pass int
+
+	
+	akun[0] = account{id : 103012400018, 
+		username : "satoshi", 
+		password: 201105, 
+		moneyFiat: 1000000000, 
+		saldoVirtual: wallet{id : 103012400018, 
+			name: "satoshi", 
+			pasokan:100}}
+	dompetVirtual[0] = akun[0].saldoVirtual
+	akun[1] = account{id : 103012400215,
+		username: "Tn. Putih",
+		password: 20,
+		moneyFiat: 23465432135,
+		saldoVirtual: wallet{id : 103012400215,
+			name: "Tn. Putih",
+			pasokan: 98}}
+	dompetVirtual[1] = akun[1].saldoVirtual
+
+
 	for aplikasiAktif {
 		var accountOption int
 		var isLogin bool = false
@@ -71,18 +88,20 @@ func main(){
 				case 3:
 					rangkingKripto(akun)
 				case 4:
-					fmt.Print("Masukan Id: ")
-					fmt.Scan(&id)
-					fmt.Print("Masukan Password: ")
-					fmt.Scan(&pass)
-					isLogin = hapusAccount(&akun, id, pass)
+					tampilanLaporanDataHargaKripto()
 				case 5:
 					fmt.Print("Masukan Id: ")
 					fmt.Scan(&id)
 					fmt.Print("Masukan Password: ")
 					fmt.Scan(&pass)
-					isLogin = logOut(akun, id, pass)
+					isLogin = hapusAccount(&akun, id, pass)
 				case 6:
+					fmt.Print("Masukan Id: ")
+					fmt.Scan(&id)
+					fmt.Print("Masukan Password: ")
+					fmt.Scan(&pass)
+					isLogin = logOut(akun, id, pass)
+				case 7:
 					aplikasiAktif = false
 					isLogin = false
 			}
@@ -109,9 +128,10 @@ func DashboardOption() {
 	fmt.Println("1. Melakukan Transaksi Kripto")
 	fmt.Println("2. Search Data Transaksi Kripto")
 	fmt.Println("3. Urutkan Top Global Kripto")
-	fmt.Println("4. Hapus Akun")
-	fmt.Println("5. LogOut")
-	fmt.Println("6. Keluar Aplikasi")
+	fmt.Println("4. Tampilkan Laporan Data Harga Kripto")
+	fmt.Println("5. Hapus Akun")
+	fmt.Println("6. LogOut")
+	fmt.Println("7. Keluar Aplikasi")
 	fmt.Println("=========================================================")
 	fmt.Print("Masukkan Pilihan: ")
 }
@@ -195,7 +215,7 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 	var i, tanggal, bulan, tahun, idxWallet, id, pw, n int
 	var nilaiJualKripto float64
 	var valid bool
-	valid = false
+	valid = true
 	i = 0
 	fmt.Println("Masukan Id: ")
 	fmt.Scan(&id)
@@ -206,12 +226,16 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 		if akun[i].id == id && akun[i].password == pw{
 			pasokanKripto += wallet[i].pasokan
 			idxWallet = i
+			valid = false
 			i = NMAX
 		}else if akun[i].id == 0{
 			i = NMAX
 		}else{
 			i++
 		}
+	}
+	if valid != false{
+		fmt.Print("Id atau Password Salah")
 	}
 	for valid == false{
 		i = 0
@@ -277,7 +301,7 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 			}		
 		}else{
 			fmt.Println("Tipe transaksi tidak dikenali (harus 'jual' atau 'beli').")
-			valid = false
+			valid = true
 		}
 	}
 	
@@ -297,12 +321,20 @@ func mencariDataTranksasi(dataJualBeli arrTransaksi, akun arrAkun, tanggal, bula
 	}
 	if ada == true {
 		fmt.Println("\nAkun Yang Tersedia:")
-		fmt.Printf("%-5s %-10s %-10s %-10s\n", "ID", "Username", "Saldo", "Pasokan")
-		fmt.Printf("%-5d %-10s Rp%-10.2f %-10d\n", akun[temp].id, akun[temp].username, akun[temp].moneyFiat, akun[temp].saldoVirtual.pasokan)
+		fmt.Printf("%-5s %-10s %-15s %-10s %-15s\n", "ID", "Username", "Saldo", "Pasokan", "Tipe Transaksi")
+		fmt.Printf("%-5d %-10s Rp%-13.2f %-10d %-15s\n", akun[temp].id, akun[temp].username, akun[temp].moneyFiat, akun[temp].saldoVirtual.pasokan, dataJualBeli[temp].tipeTransaksi)
 	} else {
 		fmt.Print("Tidak Ada Riwayat Transaksi")
 	}
 }
+func tampilanLaporanDataHargaKripto(){
+    fmt.Println("+----+----------------+--------+----------------+------------------+----------------+----------------+----------------+")
+    fmt.Println("| No | Nama Aset      | Jenis  | Harga Saat Ini | Kapitalisasi     | Volume 24 Jam  | Perubahan 24h  | Dominasi Pasar |")
+    fmt.Println("+----+----------------+--------+----------------+------------------+----------------+----------------+----------------+")
+    fmt.Println("| 1  | Bitcoin (BTC)  | Kripto | Rp12.000,00     | Rp3.500.000.000  | Rp700.000.000  | -0,24%         | 59,14%          |")
+    fmt.Println("+----+----------------+--------+----------------+------------------+----------------+----------------+----------------+")
+}
+
 func rangkingKripto(A arrAkun){
 	var i, idx, j int
 	var temp account

@@ -36,25 +36,7 @@ func main(){
 	var tipeJualBeli string
 	var tanggal, bulan, tahun, id, pass int
 
-	
-	akun[0] = account{id : 103012400018, 
-		username : "satoshi", 
-		password: 201105, 
-		moneyFiat: 1000000000, 
-		saldoVirtual: wallet{id : 103012400018, 
-			name: "satoshi", 
-			pasokan:100}}
-	dompetVirtual[0] = akun[0].saldoVirtual
-	akun[1] = account{id : 103012400215,
-		username: "Tn. Putih",
-		password: 20,
-		moneyFiat: 23465432135,
-		saldoVirtual: wallet{id : 103012400215,
-			name: "Tn. Putih",
-			pasokan: 98}}
-	dompetVirtual[1] = akun[1].saldoVirtual
-
-
+	akunFiktif(&akun, &dompetVirtual)
 	for aplikasiAktif {
 		var accountOption int
 		var isLogin bool = false
@@ -107,6 +89,52 @@ func main(){
 			}
 		}
 	}
+}
+func akunFiktif(akun *arrAkun, dompetVirtual *arrWalet){
+	akun[0] = account{id: 103012400018,
+	username: "farhan",
+	password: 201105,
+	moneyFiat: 1000000000000,
+	saldoVirtual: wallet{id: 103012400018,
+		name: "farhan",
+		pasokan: 100}}
+	dompetVirtual[0] = akun[0].saldoVirtual
+
+akun[1] = account{id: 103012400215,
+	username: "Tn. Putih",
+	password: 20,
+	moneyFiat: 23465432135,
+	saldoVirtual: wallet{id: 103012400215,
+		name: "Tn. Putih",
+		pasokan: 98}}
+	dompetVirtual[1] = akun[1].saldoVirtual
+
+akun[2] = account{id: 103012400322,
+	username: "fahrezi",
+	password: 123456,
+	moneyFiat: 999999999,
+	saldoVirtual: wallet{id: 103012400322,
+		name: "fahrezi",
+		pasokan: 85}}
+	dompetVirtual[2] = akun[2].saldoVirtual
+
+akun[3] = account{id: 103012400429,
+	username: "jotaro",
+	password: 543210,
+	moneyFiat: 500000000,
+	saldoVirtual: wallet{id: 103012400429,
+		name: "jotaro",
+		pasokan: 120}}
+	dompetVirtual[3] = akun[3].saldoVirtual
+
+akun[4] = account{id: 103012400536,
+	username: "satoshi",
+	password: 111222,
+	moneyFiat: 420000000,
+	saldoVirtual: wallet{id: 103012400536,
+		name: "satoshi",
+		pasokan: 76}}
+	dompetVirtual[4] = akun[4].saldoVirtual
 }
 func WelcomeLogin() {
 	fmt.Println("╔════════════════════════════════════════════════════════════╗")

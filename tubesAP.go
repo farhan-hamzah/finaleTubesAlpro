@@ -66,7 +66,7 @@ func main(){
 					fmt.Scan(&id)
 					fmt.Print("🗓️  Masukkan tanggal transaksi (format: DD-MM-YYYY): ")
 					fmt.Scan(&tanggal, &bulan, &tahun)
-					mencariDataTranksasi(catatanTransaksi, akun, tanggal, bulan, tahun, id)
+					mencariDataTranksasi(catatanTransaksi, akun, tanggal, bulan, tahun, id, dompetVirtual)
 				case 3:
 					rangkingKripto(akun)
 				case 4:
@@ -244,6 +244,7 @@ func regis(akun *arrAkun, pilihAkun int)bool{
 func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet, akun *arrAkun){
 	var pasokanKripto, jumlahKriptoYangDijual, jumlahKriptoYangDibeli, nilaiBeliKripto int
 	var i, tanggal, bulan, tahun, idxWallet, id, pw, n int
+	var nama string
 	var nilaiJualKripto float64
 	var valid bool
 	valid = true
@@ -260,6 +261,7 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 			pasokanKripto += wallet[i].pasokan
 			idxWallet = i
 			valid = false
+			nama = akun[i].username
 			i = NMAX
 		}else if akun[i].id == 0{
 			i = NMAX
@@ -295,8 +297,10 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 						i++
 					}
 				}
-				wallet[idxWallet].pasokan = pasokanKripto-jumlahKriptoYangDijual
-				akun[idxWallet].saldoVirtual.pasokan = wallet[idxWallet].pasokan
+				akun[idxWallet].saldoVirtual.id = id
+				akun[idxWallet].saldoVirtual.name = nama
+				akun[idxWallet].saldoVirtual.pasokan = pasokanKripto-jumlahKriptoYangDijual
+				wallet[idxWallet] = akun[idxWallet].saldoVirtual
 				valid = true
 			}else{
 				fmt.Println("🚫 Jumlah kripto yang dimiliki tidak mencukupi. Silakan periksa saldo Anda.")
@@ -324,9 +328,11 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 					}else{
 						i++
 					}
-				}
-				wallet[idxWallet].pasokan = pasokanKripto+jumlahKriptoYangDibeli
-				akun[idxWallet].saldoVirtual.pasokan = wallet[idxWallet].pasokan
+				}				
+				akun[idxWallet].saldoVirtual.id = id
+				akun[idxWallet].saldoVirtual.name = nama
+				akun[idxWallet].saldoVirtual.pasokan = pasokanKripto+jumlahKriptoYangDibeli
+				wallet[idxWallet] = akun[idxWallet].saldoVirtual
 				valid = true
 			}else{
 				fmt.Println("💸 Maaf, saldo Anda tidak mencukupi untuk melakukan transaksi.")
@@ -339,18 +345,35 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 	}
 	
 }
-func mencariDataTranksasi(dataJualBeli arrTransaksi, akun arrAkun, tanggal, bulan, tahun, id int) {
+func mencariDataTranksasi(dataJualBeli arrTransaksi, akun arrAkun, tanggal, bulan, tahun, id int, wallet arrWalet) {
 	var i, temp int
 	var ada bool
 	ada = false
-	for i = 0; i < NMAX; i++ {
-		if dataJualBeli[i].tanggal == tanggal && dataJualBeli[i].bulan == bulan && dataJualBeli[i].tahun == tahun && dataJualBeli[i].userId == id {
+	temp = -1
+	i = 0
+	for i < NMAX && ada == false {
+		if dataJualBeli[i].userId == 0 {
+			i = NMAX
+		}else if dataJualBeli[i].tanggal == tanggal && dataJualBeli[i].bulan == bulan && dataJualBeli[i].tahun == tahun && dataJualBeli[i].userId == id {
 			temp = i
 			ada = true
 			i = NMAX
-		} else if dataJualBeli[i].userId == 0 {
-			i = NMAX
+		}else{
+			i++
 		}
+	}
+	var idxAkun int
+    idxAkun = -1
+    var j = 0
+    for j < NMAX && idxAkun == -1 {
+        if akun[j].id == id {
+            idxAkun = j
+            j = NMAX  
+        } else if akun[j].id == 0 {
+            j = NMAX  
+        } else {
+            j++
+        }
 	}
 	if ada == true {
 		fmt.Printf("\n📄 Transaksi Tanggal: %02d/%02d/%04d\n", tanggal, bulan, tahun)
@@ -358,7 +381,7 @@ func mencariDataTranksasi(dataJualBeli arrTransaksi, akun arrAkun, tanggal, bula
 		fmt.Printf("%-10s | %-10s | %-10s | %-10s | %-15s\n", "ID", "Username", "Saldo", "Kripto", "Jenis Transaksi")
 		fmt.Println("───────────────────────────────────────────────────────────")
 		fmt.Printf("%-10d | %-10s | Rp%-9.2f | %-10d | %-15s\n",
-		akun[temp].id, akun[temp].username, akun[temp].moneyFiat, akun[temp].saldoVirtual.pasokan, dataJualBeli[temp].tipeTransaksi)
+		akun[idxAkun].id, akun[idxAkun].username, akun[idxAkun].moneyFiat, wallet[idxAkun].pasokan, dataJualBeli[temp].tipeTransaksi)
 		fmt.Println("═══════════════════════════════════════════════════════════")
 	} else {
 		fmt.Println("📭 Tidak ditemukan riwayat transaksi.")

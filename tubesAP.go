@@ -74,7 +74,7 @@ func main(){
 					fmt.Scan(&tanggal, &bulan, &tahun)
 					fmt.Print("🪙 Masukan Tipe Kripto (BTC / ETH / SOL / BNB): ")
 					fmt.Scan(&tipeCoin)   	
-					mencariDataTranksasi(catatanTransaksi, akun, tanggal, bulan, tahun, id, dompetVirtual, tipeCoin)
+					mencariDataTranksasi(catatanTransaksi, akun, tanggal, bulan, tahun, id, tipeCoin)
 				case 4:
 					fmt.Print("🏆 Rangking Kripto Berdasarkan (BTC / ETH / SOL / BNB): ")
 					fmt.Scan(&rankCripto)
@@ -638,7 +638,7 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 	}
 
 }
-func mencariDataTranksasi(dataJualBeli arrTransaksi, akun arrAkun, tanggal, bulan, tahun, id int, wallet arrWalet, tipeKoin string) {
+func mencariDataTranksasi(dataJualBeli arrTransaksi, akun arrAkun, tanggal, bulan, tahun, id int, tipeKoin string) {
 	var i, temp int
 	var ada bool
 	ada = false
@@ -854,7 +854,7 @@ func hapusAccount(akun *arrAkun, id, pass int)bool{
 	fmt.Printf("%-5s %-12s %-15s %-10s %-10s %-10s %-10s\n", "ID", "Username", "Saldo", "BTC", "ETH", "SOL", "BNB")
 	for i = 0; i < NMAX; i++ {
 		if akun[i].id != 0 {
-			fmt.Printf("%-5d %-12s Rp%-13.2f %-10.2f %-10.2f %-10.2f %-10.2f\n", akun[i].id, akun[i].username, akun[i].moneyFiat, akun[i].saldoVirtual.btc, akun[i].saldoVirtual.eth, akun[i].saldoVirtual.sol, akun[i].saldoVirtual.binance)
+			fmt.Printf("%-5d %-12s Rp%-13.2f %-10d %-10d %-10d %-10d\n", akun[i].id, akun[i].username, akun[i].moneyFiat, akun[i].saldoVirtual.btc, akun[i].saldoVirtual.eth, akun[i].saldoVirtual.sol, akun[i].saldoVirtual.binance)
 		}
 	}
 	fmt.Println()

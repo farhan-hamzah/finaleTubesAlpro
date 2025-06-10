@@ -461,7 +461,7 @@ func jualBeli(tipeJualBeli string, dataJualBeli *arrTransaksi, wallet *arrWalet,
 					}
 				case "BNB":
 					if jumlahKriptoYangDijual <= pasokanBTC{
-						nilaiJualKripto = float64(jumlahKriptoYangDijual)*21000
+						nilaiJualKripto = float64(jumlahKriptoYangDijual)*13000
 						akun[idxWallet].moneyFiat += nilaiJualKripto
 						fmt.Print("🗓️  Masukkan tanggal transaksi (format: DD-MM-YYYY): ")
 						fmt.Scan(&tanggal, &bulan, &tahun)
